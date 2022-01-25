@@ -1,0 +1,8 @@
+.card{
+    display: flex;
+    align-items: center;
+    height: 300px;
+    object-fit: cover;
+    margin: 0 10px;
+    
+}

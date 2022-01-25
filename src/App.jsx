@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import LocalCalender from "./Component/LocalCalender";
 import Home from "./Component/Home";
 import "./App.css";
-import World from "./Component/World";
+import USCalender from "./Component/USCalender";
+
 
 
 
@@ -16,13 +17,13 @@ function App() {
         <span> </span>
         <Link to="/SGCalender">PH Singapore</Link>
         <span> </span>
-        <Link to="/World-PH">Worldwide Public Holiday</Link>
+        <Link to="/USACalender">United States Public Holiday</Link>
       </nav>
       <main>
         <Routes>
           <Route path="/" element={<Home/>} />
           <Route path="/SGCalender" element={<LocalCalender/>} />
-          <Route path="/World-PH" element={<World/>} />
+          <Route path="/UsaCalender" element={<USCalender/>} />
         </Routes>
       </main>
     </div>
