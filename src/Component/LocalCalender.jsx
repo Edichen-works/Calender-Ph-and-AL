@@ -9,7 +9,6 @@ const LocalCalender = (props) => {
   const [selectedHoliday, setSelectedHoliday] = useState({});
   const inputRef = useRef();
 
-  // const apiUrl = `https://calendarific.com/api/v2/${search}?&api_key=e7534eab09af32edc092e709253594d40871f471&country=SG&year=2022`;
   const apiUrl = `https://calendarific.com/api/v2/holidays?&api_key=${process.env.REACT_APP_API_KEY}&country=SG&year=2022`;
   const makeApiCall = () => {
     fetch(apiUrl)
@@ -41,17 +40,6 @@ const LocalCalender = (props) => {
     findHoliday(inputRef.current.value);
   };
 
-  //   const cards = selectedHoliday.map((item, index) => {
-  //     return (
-  //       <Card
-  //         name={item.name}
-  //         description={item.description}
-  //         date={item.date.iso}
-  //         key={index}
-  //       />
-  //     );
-  //   });
-
   return (
     <div>
       <h2>Singapore</h2>
@@ -59,7 +47,7 @@ const LocalCalender = (props) => {
         <input ref={inputRef} type="text" placeholder="Search PHs!" />
         <button>Submit</button>
       </form>
-      <MyCalendar />
+      <MyCalendar ph={ph} />
       <Card selectedHoliday={selectedHoliday} />
     </div>
   );

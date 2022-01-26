@@ -5,11 +5,10 @@ const Card = (props) => {
   return (
     <div className="card" style={{ width: "18rem" }}>
       <div className="card-body">
-        <ul>
-          <li>{props?.selectedHoliday?.name}</li>
-          <li>{props?.selectedHoliday?.description}</li>
-          <li>{props?.selectedHoliday?.date?.iso}</li>
-        </ul>
+        <span></span>
+        <p>{props?.selectedHoliday?.description}</p>
+        <span></span>
+        <p>{props?.selectedHoliday?.date?.iso}</p>
       </div>
     </div>
   );
