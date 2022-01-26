@@ -7,14 +7,14 @@ import format from "date-fns/format";
 import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
 import getDay from "date-fns/getDay";
-import React, { useState } from "react";
+import React, { useState, setState } from "react";
 import ReactDatePicker from "react-datepicker";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-datepicker/dist/react-datepicker.css";
 
 const locales = {
-  "en-SG": require("date-fns/locale/en-US"),
+  "en-US": require("date-fns/locale/en-US"),
 };
 const localiser = dateFnsLocalizer({
   format,
@@ -35,13 +35,6 @@ const addEvent = [
 ];
 
 const MyCalendar = (props) => {
-  const [newEvent, setnewEvent] = useState({ title: "", start: "", end: "" });
-  const [allEvent, setallEvent] = useState(addEvent);
-
-  const handleAddEvent = () => {
-    setallEvent(...allEvent, newEvent);
-  };
-
   const publicHoliday = props.ph;
   const mapPublicHoliday = publicHoliday.map((day) => {
     return {
@@ -51,6 +44,39 @@ const MyCalendar = (props) => {
       allDay: true,
     };
   });
+
+  const [newEvent, setnewEvent] = useState({ title: "", start: "", end: "" });
+  const [allEvents, setallEvent] = useState(mapPublicHoliday); //addEvent
+
+  const handleAddEvent = () => {
+    setallEvent([...allEvents, newEvent]);
+  };
+
+  const handleSelect = ({ start, end }) => {
+    const title = window.prompt("New AL");
+    console.log(title);
+    // if (title)
+    // this.setState({
+    //   events: [
+    //     ...this.state.events,
+    //     {
+    //       start,
+    //       end,
+    //       title,
+    //     },
+    //   ],
+    // })
+  };
+
+  // const publicHoliday = props.ph;
+  // const mapPublicHoliday = publicHoliday.map((day) => {
+  //   return {
+  //     title: day.name,
+  //     start: new Date(day.date.iso),
+  //     end: new Date(day.date.iso),
+  //     allDay: true,
+  //   };
+  // });
 
   return (
     <div>
@@ -79,11 +105,14 @@ const MyCalendar = (props) => {
         </button>
       </div>
       <Calendar
-        localizer={localizer}
-        events={allEvent} //mapPublicHoliday
+        localizer={localiser} //localiser(date-fns), localizer(moment)
+        events={allEvents} //allEvents, mapPublicHoliday
         startAccessor="start"
         endAccessor="end"
         style={{ height: 500, margin: "50px" }}
+        views={["month", "week", "agenda"]}
+        onSelectEvent={(event) => alert(event.title)}
+        // onSelectSlot={handleSelect}
       />
     </div>
   );
