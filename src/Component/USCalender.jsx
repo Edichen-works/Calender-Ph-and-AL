@@ -10,7 +10,7 @@ const USCalender = (props) => {
     SetSearch("");
     console.log(SetSearch);
   };
-  const y2022 = 2022;
+  // const y2022 = 2022;
   // const apiUrlUs = `https://calendarific.com/api/v2/holidays?&api_key=e7534eab09af32edc092e709253594d40871f471&country=US&year=${y2022}`;
   // const makeApiCall = () => {
   //   fetch(apiUrlUs)
