@@ -6,9 +6,6 @@ import Home from "./Component/Home";
 import "./App.css";
 import USCalender from "./Component/USCalender";
 
-
-
-
 function App() {
   return (
     <div className="App">
@@ -21,9 +18,9 @@ function App() {
       </nav>
       <main>
         <Routes>
-          <Route path="/" element={<Home/>} />
-          <Route path="/SGCalender" element={<LocalCalender/>} />
-          <Route path="/UsaCalender" element={<USCalender/>} />
+          <Route path="/" element={<Home />} />
+          <Route path="/SGCalender" element={<LocalCalender />} />
+          <Route path="/UsaCalender" element={<USCalender />} />
         </Routes>
       </main>
     </div>
