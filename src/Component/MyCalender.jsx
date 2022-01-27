@@ -7,9 +7,9 @@ import format from "date-fns/format";
 import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
 import getDay from "date-fns/getDay";
-import React, { useState, setState } from "react";
+import React, { useState, setState, useEffect } from "react";
 import ReactDatePicker from "react-datepicker";
-import moment from "moment";
+// import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -23,33 +23,36 @@ const localiser = dateFnsLocalizer({
   getDay,
   locales,
 });
-const localizer = momentLocalizer(moment);
+// const localizer = momentLocalizer(moment);
 
-const addEvent = [
-  {
-    title: "Big Meeting",
-    allDay: true,
-    start: new Date("2022-01-18"),
-    end: new Date("2022-01-18"),
-  },
-];
+// const addEvent = [
+//   {
+//     title: "Big Meeting",
+//     allDay: true,
+//     start: new Date("2022-01-18"),
+//     end: new Date("2022-01-18"),
+//   },
+// ];
 
 const MyCalendar = (props) => {
-  const publicHoliday = props.ph;
-  const mapPublicHoliday = publicHoliday.map((day) => {
-    return {
-      title: day.name,
-      start: new Date(day.date.iso),
-      end: new Date(day.date.iso),
-      allDay: true,
-    };
-  });
+  const [newEvent, setNewEvent] = useState({ title: "", start: "", end: "" });
+  const [allEvents, setAllEvents] = useState([]); //addEvent
 
-  const [newEvent, setnewEvent] = useState({ title: "", start: "", end: "" });
-  const [allEvents, setallEvent] = useState(mapPublicHoliday); //addEvent
+  useEffect(() => {
+    const publicHoliday = props.ph;
+    const mapPublicHoliday = publicHoliday.map((day) => {
+      return {
+        title: day.name,
+        start: new Date(day.date.iso),
+        end: new Date(day.date.iso),
+        allDay: true,
+      };
+    });
+    setAllEvents(mapPublicHoliday);
+  }, [props.ph]);
 
   const handleAddEvent = () => {
-    setallEvent([...allEvents, newEvent]);
+    setAllEvents([...allEvents, newEvent]);
   };
 
   const handleSelect = ({ start, end }) => {
@@ -68,16 +71,6 @@ const MyCalendar = (props) => {
     // })
   };
 
-  // const publicHoliday = props.ph;
-  // const mapPublicHoliday = publicHoliday.map((day) => {
-  //   return {
-  //     title: day.name,
-  //     start: new Date(day.date.iso),
-  //     end: new Date(day.date.iso),
-  //     allDay: true,
-  //   };
-  // });
-
   return (
     <div>
       <h2>Add AL</h2>
@@ -87,22 +80,23 @@ const MyCalendar = (props) => {
           placeholder="Add AL"
           style={{ width: "20%", marginRight: "10px" }}
           value={newEvent.title}
-          onChange={(e) => setnewEvent({ ...newEvent, title: e.target.value })}
+          onChange={(e) => setNewEvent({ ...newEvent, title: e.target.value })}
         />
         <ReactDatePicker
           placeholderText="Start Date"
           style={{ marginRight: "10px" }}
           selected={newEvent.start}
-          onChange={(start) => setnewEvent({ ...newEvent, start })}
+          onChange={(start) => setNewEvent({ ...newEvent, start })}
         />
         <ReactDatePicker
           placeholderText="End Date"
           selected={newEvent.end}
-          onChange={(end) => setnewEvent({ ...newEvent, end })}
+          onChange={(end) => setNewEvent({ ...newEvent, end })}
         />
         <button style={{ marginTop: "10px" }} onClick={handleAddEvent}>
           Add AL
         </button>
+        <br />
       </div>
       <Calendar
         localizer={localiser} //localiser(date-fns), localizer(moment)
