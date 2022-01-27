@@ -47,7 +47,7 @@ const USCalender = (props) => {
         <input ref={inputRef} type="text" placeholder="Search USA PHs!" />
         <button>Submit</button>
       </form>
-      <USCal usPH={usPH} />
+      <USCal usPH={usPH} setselecetedHol={setselecetedHol} />
       <UsaCard selecetedHol={selecetedHol} />
     </div>
   );

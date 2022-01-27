@@ -23,7 +23,7 @@ const LocalCalender = (props) => {
   }, [search]);
 
   const findHoliday = (searchedItem) => {
-    console.log("ph", ph);
+    // console.log("ph", ph);
     const foundHoliday = ph.filter((item, index) => {
       return item.name.toLowerCase() === searchedItem.toLowerCase();
     });
@@ -32,7 +32,7 @@ const LocalCalender = (props) => {
       setSelectedHoliday(foundHoliday[0]);
     }
   };
-
+  console.log(selectedHoliday);
   const handleSubmit = (e) => {
     e.preventDefault();
     setSearch(inputRef.current.value);
@@ -47,7 +47,7 @@ const LocalCalender = (props) => {
         <input ref={inputRef} type="text" placeholder="Search PHs!" />
         <button>Submit</button>
       </form>
-      <MyCalendar ph={ph} />
+      <MyCalendar ph={ph} setSelectedHoliday={setSelectedHoliday} />
       <Card selectedHoliday={selectedHoliday} />
     </div>
   );

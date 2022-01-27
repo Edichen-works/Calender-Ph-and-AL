@@ -37,6 +37,7 @@ const localiser = dateFnsLocalizer({
 const MyCalendar = (props) => {
   const [newEvent, setNewEvent] = useState({ title: "", start: "", end: "" });
   const [allEvents, setAllEvents] = useState([]); //addEvent
+  const [cardDetails, setCardDetails] = useState("");
 
   useEffect(() => {
     const publicHoliday = props.ph;
@@ -55,21 +56,32 @@ const MyCalendar = (props) => {
     setAllEvents([...allEvents, newEvent]);
   };
 
-  const handleSelect = ({ start, end }) => {
-    const title = window.prompt("New AL");
-    console.log(title);
-    // if (title)
-    // this.setState({
-    //   events: [
-    //     ...this.state.events,
-    //     {
-    //       start,
-    //       end,
-    //       title,
-    //     },
-    //   ],
-    // })
+  const handleAddCard = (event) => {
+    const eventName = event.title;
+    const foundHoliday = props.ph.filter((element, index) => {
+      return element.name.toLowerCase() === eventName.toLowerCase();
+    });
+    console.log("found Holiday", foundHoliday);
+    if (foundHoliday[0]) {
+      props.setSelectedHoliday(foundHoliday[0]);
+    }
   };
+
+  // const handleSelect = ({ start, end }) => {
+  //   const title = window.prompt("New AL");
+  //   console.log(title);
+  // if (title)
+  // this.setState({
+  //   events: [
+  //     ...this.state.events,
+  //     {
+  //       start,
+  //       end,
+  //       title,
+  //     },
+  //   ],
+  // })
+  // };
 
   return (
     <div>
@@ -105,7 +117,7 @@ const MyCalendar = (props) => {
         endAccessor="end"
         style={{ height: 500, margin: "50px" }}
         views={["month", "week", "agenda"]}
-        onSelectEvent={(event) => alert(event.title)}
+        onSelectEvent={(event) => handleAddCard(event)} //(event) => alert(event.title)
         // onSelectSlot={handleSelect}
       />
     </div>

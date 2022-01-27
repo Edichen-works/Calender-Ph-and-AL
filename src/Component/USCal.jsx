@@ -10,9 +10,9 @@ import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-datepicker/dist/react-datepicker.css";
 
-const localesUSA = {
-  "en-US": require("date-fns/locale/en-US"),
-};
+// const localesUSA = {
+//   "en-US": require("date-fns/locale/en-US"),
+// };
 
 // const localiser = dateFnsLocalizer({
 //   format,
@@ -23,14 +23,14 @@ const localesUSA = {
 // });
 const localizer = momentLocalizer(moment);
 
-const addEventUSA = [
-  {
-    title: "Big Meeting",
-    allDay: true,
-    start: new Date("2022-01-18"),
-    end: new Date("2022-01-18"),
-  },
-];
+// const addEventUSA = [
+//   {
+//     title: "Big Meeting",
+//     allDay: true,
+//     start: new Date("2022-01-18"),
+//     end: new Date("2022-01-18"),
+//   },
+// ];
 
 const USCal = (props) => {
   const [newEventUsa, setnewEventUsa] = useState({
@@ -38,7 +38,8 @@ const USCal = (props) => {
     start: "",
     end: "",
   });
-  const [allEventsUsa, setallEventsUsa] = useState([]);
+  const [allEventsUsa, setAllEventsUsa] = useState([]);
+  const [cardDetails, setCardDetails] = useState("");
 
   useEffect(() => {
     const publicHolidayUsa = props.usPH;
@@ -50,18 +51,53 @@ const USCal = (props) => {
         allday: true,
       };
     });
-    setallEventsUsa(mapPublicHolidayUsa);
-    console.log(mapPublicHolidayUsa);
+    setAllEventsUsa(mapPublicHolidayUsa);
   }, [props.usPH]);
 
   const handleAddEvent = () => {
-    setallEventsUsa([...allEventsUsa, newEventUsa]);
+    setAllEventsUsa([...allEventsUsa, newEventUsa]);
+  };
+
+  const handleAddCard = (event) => {
+    const eventName = event.title;
+    const foundHoliday = props.usPH.filter((element, index) => {
+      return element.name.toLowerCase() === eventName.toLowerCase();
+    });
+    console.log("found Holiday", foundHoliday);
+    if (foundHoliday[0]) {
+      props.setselecetedHol(foundHoliday[0]);
+    }
   };
 
   return (
     <div>
       <h2>Add USA AL</h2>
-      <div></div>
+      <div>
+        <input
+          type="text"
+          placeholder="Add AL"
+          style={{ width: "20%", marginRight: "10px" }}
+          value={newEventUsa.title}
+          onChange={(e) =>
+            setnewEventUsa({ ...newEventUsa, title: e.target.value })
+          }
+        />
+        <ReactDatePicker
+          placeholderText="Start Date"
+          style={{ marginRight: "10px" }}
+          selected={newEventUsa.start}
+          onChange={(start) => setnewEventUsa({ ...newEventUsa, start })}
+        />
+        <ReactDatePicker
+          placeholderText="End Date"
+          style={{ marginRight: "10px" }}
+          selected={newEventUsa.end}
+          onChange={(end) => setnewEventUsa({ ...newEventUsa, end })}
+        />
+        <button style={{ marginTop: "10px" }} onClick={handleAddEvent}>
+          Submit
+        </button>
+      </div>
 
       <Calendar
         localizer={localizer} //localiser(date-fns), localizer(moment)
@@ -70,7 +106,7 @@ const USCal = (props) => {
         endAccessor="end"
         style={{ height: 500, margin: "50px" }}
         views={["month", "week", "agenda"]}
-        onSelectEvent={(event) => alert(event.title)}
+        onSelectEvent={(event) => handleAddCard(event)}
         // onSelectSlot={handleSelect}
       />
     </div>
