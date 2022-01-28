@@ -3,7 +3,7 @@ import React from "react";
 const Home = () => {
   return (
     <div>
-      <h1>Public Holiday Planner 2022</h1>
+      <h1>Holiday Planner 2022</h1>
       <p>Plan your Annual Leave for 2022</p>
     </div>
   );

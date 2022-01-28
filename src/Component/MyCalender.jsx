@@ -85,7 +85,7 @@ const MyCalendar = (props) => {
 
   return (
     <div>
-      <h2>Add AL</h2>
+      <h3>Add AL</h3>
       <div>
         <input
           type="text"

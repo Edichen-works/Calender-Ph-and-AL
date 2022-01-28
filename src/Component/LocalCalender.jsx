@@ -42,7 +42,7 @@ const LocalCalender = (props) => {
 
   return (
     <div>
-      <h2>Singapore</h2>
+      <h2>Singapore Holidays</h2>
       <form onSubmit={handleSubmit}>
         <input ref={inputRef} type="text" placeholder="Search PHs!" />
         <button>Submit</button>

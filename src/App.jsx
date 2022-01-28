@@ -12,9 +12,9 @@ function App() {
       <nav>
         <Link to="/">Home</Link>
         <span> </span>
-        <Link to="/SGCalender">PH Singapore</Link>
+        <Link to="/SGCalender">Singapore Holidays</Link>
         <span> </span>
-        <Link to="/USACalender">United States Public Holiday</Link>
+        <Link to="/USACalender">United States Holidays</Link>
       </nav>
       <main>
         <Routes>

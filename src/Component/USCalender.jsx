@@ -9,7 +9,7 @@ const USCalender = (props) => {
   const [selecetedHol, setselecetedHol] = useState({});
   const inputRef = useRef();
 
-  const usApi = `https://calendarific.com/api/v2/holidays?&api_key=e7534eab09af32edc092e709253594d40871f471&country=US&year=y2022`;
+  const usApi = `https://calendarific.com/api/v2/holidays?&api_key=${process.env.REACT_APP_API_KEY}&country=US&year=y2022`;
   const makeApiCall = () => {
     fetch(usApi)
       .then((response) => response.json())
@@ -42,7 +42,7 @@ const USCalender = (props) => {
 
   return (
     <div>
-      <h1>United States of America PH</h1>
+      <h2>United States Holidays</h2>
       <form onSubmit={handleSubmit}>
         <input ref={inputRef} type="text" placeholder="Search USA PHs!" />
         <button>Submit</button>

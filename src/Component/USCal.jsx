@@ -71,7 +71,7 @@ const USCal = (props) => {
 
   return (
     <div>
-      <h2>Add USA AL</h2>
+      <h3>Add USA AL</h3>
       <div>
         <input
           type="text"
